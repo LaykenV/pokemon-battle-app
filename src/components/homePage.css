@@ -1,0 +1,41 @@
+.homeHeader {
+    background-color: rgb(239, 14, 61);
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.homeTitle {
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+.blackBar {
+    height: 2rem;
+    background-color: rgb(56, 56, 56);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bigCircle {
+    height: 4rem;
+    width: 4rem;
+    background-color: rgb(238, 238, 238);
+    border: .5rem solid rgb(56, 56, 56);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lilCircle {
+    height: 2rem;
+    width: 2rem;
+    background-color: rgb(238, 238, 238);
+    border: .25rem solid rgb(56, 56, 56);
+    border-radius: 50%;
+}
