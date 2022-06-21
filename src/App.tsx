@@ -40,7 +40,7 @@ function App() {
       const specialAttack : number = pokemon.stats[3].base_stat;
       const specialDefense : number = pokemon.stats[4].base_stat;
       const speed : number = pokemon.stats[5].base_stat;
-      const type : string = pokemon.types[0].type.name;
+      const type : string = capitalizeFirstLetter(pokemon.types[0].type.name);
       pokemons.push({ id, name, frontImage, backImage, hp, attack, defense, specialAttack, specialDefense, speed, type })
     }
     setPokemons(pokemons);
@@ -59,6 +59,18 @@ function App() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  const handleCardClick = (e:any) => {
+    const pokemonName = e.target.parentNode.parentNode.firstChild.lastChild.textContent;
+    const clickedPokemon:any = pokemons.filter(pokemon => {
+      return pokemon.name === pokemonName;
+    });
+    console.log(clickedPokemon);
+    
+    setYourPokemons((prevState) => [...prevState, clickedPokemon[0]]);
+    console.log(yourPokemons);
+        
+  }
+
   const handleNextArrow = () => {
     setA(a + 10);
     setB(b + 10);    
@@ -75,7 +87,7 @@ function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<HomePage pokemons={pokemons} handleNextArrow={handleNextArrow} handleLastArrow={handleLastArrow}/>} />
+        <Route path="/" element={<HomePage pokemons={pokemons} yourPokemons={yourPokemons} handleNextArrow={handleNextArrow} handleLastArrow={handleLastArrow} handleCardClick={handleCardClick}/>} />
         <Route path="/battle" element={<BattlePage />} />
       </Routes>
     </BrowserRouter>

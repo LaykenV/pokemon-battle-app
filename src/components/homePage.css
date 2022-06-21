@@ -112,9 +112,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
     background-color: gray;
     height: 12rem;
+    width: 18rem;
 }
 
 .card {
@@ -137,6 +137,40 @@
     justify-content: space-between;
     align-items: flex-start;
     height: 90%;
+    flex-grow: 1;
+    padding: .5rem;
+}
+
+.pokemonStat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .6rem;
+    width: 100%;
+}
+
+.statName {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progressBarContainer {
+    width: 50%;
+    background-color: rgb(199, 151, 151);
+    height: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 2rem;
+}
+
+.progressBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
 }
 
 .addToTeam {
@@ -145,4 +179,8 @@
     background-color: inherit;
     border: 1px solid black;
     border-radius: 1rem;
+}
+
+.addToTeam:hover {
+    cursor: pointer;
 }
