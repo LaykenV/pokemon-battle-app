@@ -19,7 +19,7 @@ type pokemonArray = {
 }
 function App() {
   const [pokemons, setPokemons] = useState([] as pokemonArray[]);
-  const [yourPokemons, setYourPokemons] = useState([] as any);
+  const [yourPokemons, setYourPokemons] = useState([] as pokemonArray[]);
   const [a, setA] = useState(1);
   const [b, setB] = useState(10);
 
