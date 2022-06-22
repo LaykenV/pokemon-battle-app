@@ -3,6 +3,8 @@ import "./homePage.css";
 import ball from "./images/pokemonball.png";
 import trainerRed from "./images/trainerRed.png";
 import trainerBlue from "./images/trainerBlue.png";
+import { Link } from 'react-router-dom';
+
 
 type pokemonArray = {
     id: number;
@@ -24,11 +26,23 @@ type pokemonArray = {
       handleLastArrow: any;
       handleCardClick: any;
       yourPokemons: pokemonArray[];
+      enemyPokemons: pokemonArray[];
   }
 
 
-const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextArrow, handleLastArrow, handleCardClick, yourPokemons}) => {
+const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextArrow, handleLastArrow, handleCardClick, yourPokemons, enemyPokemons}) => {
 
+    const [buttonStyle, setButtonStyle] = useState({
+        display: "none"
+    });
+    
+    useEffect(() => {
+        if (yourPokemons.length === 3) {
+            setButtonStyle({
+                display: "flex"
+            })
+        }
+    }, [yourPokemons])
     const barColor = (x:number) => {
         if (x < 50) {
             return "red";
@@ -74,10 +88,14 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
         } else {return ball};
     }
 
+    const back = "<";
+    const next = ">";
+
+
     return (
         <div className="homeDiv">
             <div className="homeHeader">
-                <div className="homeTitle">Pokemon Battle</div>
+                <div className="homeTitle"><img src='https://fontmeme.com/permalink/220622/de8a8ff8a7e388a64ff2624d3869d92a.png' alt='pokemon battle'></img></div>
                 <div className="trainersAndDescription">
                     <div className="trainerLeft">
                         <img src={trainerRed} alt="trainer" className="trainerPic"></img>
@@ -87,13 +105,16 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                             <img src={ballOrPokemon(2)} alt="ball" className="battlePokemon"></img>
                         </div>
                     </div>
-                    <div className="battleDescription">Choose your pokemon and get ready to battle!</div>
+                    <div className="battleDescription">
+                        <div className='battleDescriptionText'>Choose your pokemon and get ready to battle!</div>
+                        <button className='battleButton' style={buttonStyle}><Link style={buttonStyle} to="/battle" className='link'>Start the battle!</Link></button>
+                    </div>
                     <div className="trainerRight">
                         <img src={trainerBlue} alt="trainer" className="trainerPic"></img>
                         <div className="trainerPokemon">
-                            <img src={ball} alt="ball" className="battlePokemon"></img>
-                            <img src={ball} alt="ball" className="battlePokemon"></img>
-                            <img src={ball} alt="ball" className="battlePokemon"></img>
+                            <img src={enemyPokemons[0].frontImage} alt="ball" className="battlePokemon"></img>
+                            <img src={enemyPokemons[1].frontImage} alt="ball" className="battlePokemon"></img>
+                            <img src={enemyPokemons[2].frontImage} alt="ball" className="battlePokemon"></img>
                         </div>
                     </div>
                 </div>
@@ -104,7 +125,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                 </div>
             </div>
             <div className="homeBody">
-                <div className='leftArrow' onClick={handleLastArrow}>Last Page</div>
+                <div className='leftArrow' onClick={handleLastArrow}>{back}</div>
                 <div className="bodyMain">
                     {pokemons.map((pokemon) => {
                     return (
@@ -137,7 +158,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                     )
                     })}
                 </div>
-                <div className='rightArrow' onClick={handleNextArrow}>Next Page</div>
+                <div className='rightArrow' onClick={handleNextArrow}>{next}</div>
             </div>
         </div>
     )

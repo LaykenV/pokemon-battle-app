@@ -23,6 +23,48 @@ function App() {
   const [a, setA] = useState(1);
   const [b, setB] = useState(10);
 
+  const enemyPokemons = [
+    {
+      id: 3,
+      name: "Venesaur",
+      frontImage: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      backImage: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/3.png",
+      hp: 80,
+      attack: 82,
+      defense: 83,
+      specialAttack: 100,
+      specialDefense: 100,
+      speed: 80,
+      type: "Grass"
+    },
+    {
+      id: 6,
+      name: "Charizard",
+      frontImage: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+      backImage: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png",
+      hp: 78,
+      attack: 84,
+      defense: 78,
+      specialAttack: 109,
+      specialDefense: 85,
+      speed: 100,
+      type: "Fire"
+    },
+    {
+      id: 9,
+      name: "Blastoise",
+      frontImage: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+      backImage: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/9.png",
+      hp: 79,
+      attack: 83,
+      defense: 100,
+      specialAttack: 85,
+      specialDefense: 105,
+      speed: 78,
+      type: "Water"
+    }
+  ]
+
 
   const fetchPokemons = async (a:number, b:number) => {
     const pokemons: pokemonArray[] = [];
@@ -45,6 +87,8 @@ function App() {
     }
     setPokemons(pokemons);
     console.log(pokemons);
+    console.log(enemyPokemons);
+    
   }
 
   useEffect(() => {
@@ -87,7 +131,7 @@ function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<HomePage pokemons={pokemons} yourPokemons={yourPokemons} handleNextArrow={handleNextArrow} handleLastArrow={handleLastArrow} handleCardClick={handleCardClick}/>} />
+        <Route path="/" element={<HomePage pokemons={pokemons} enemyPokemons={enemyPokemons} yourPokemons={yourPokemons} handleNextArrow={handleNextArrow} handleLastArrow={handleLastArrow} handleCardClick={handleCardClick}/>} />
         <Route path="/battle" element={<BattlePage />} />
       </Routes>
     </BrowserRouter>
