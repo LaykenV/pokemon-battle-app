@@ -88,8 +88,6 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
         } else {return ball};
     }
 
-    const back = "<";
-    const next = ">";
 
 
     return (
@@ -118,6 +116,11 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                         </div>
                     </div>
                 </div>
+                <div className='battleDescriptionTextMobileContainer'>
+                    <div className='battleDescriptionTextMobile'>Choose your pokemon and get ready to battle!</div>
+                    <button className='battleButton' style={buttonStyle}><Link style={buttonStyle} to="/battle" className='link'>Start the battle!</Link></button>
+                </div>
+                
                 <div className="blackBar">
                     <div className="bigCircle">
                         <div className="lilCircle"></div>
@@ -125,7 +128,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                 </div>
             </div>
             <div className="homeBody">
-                <div className='leftArrow' onClick={handleLastArrow}>{back}</div>
+                <div className='leftArrow' onClick={handleLastArrow}></div>
                 <div className="bodyMain">
                     {pokemons.map((pokemon) => {
                     return (
@@ -158,7 +161,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                     )
                     })}
                 </div>
-                <div className='rightArrow' onClick={handleNextArrow}>{next}</div>
+                <div className='rightArrow' onClick={handleNextArrow}></div>
             </div>
         </div>
     )
