@@ -83,7 +83,6 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
 
     const ballOrPokemon = (x:number) => {
         if (yourPokemons[x]) {
-            console.log(yourPokemons);
             return yourPokemons[x].frontImage;
         } else {return ball};
     }

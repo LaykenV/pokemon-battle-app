@@ -1,0 +1,122 @@
+.battlePageDiv {
+    height: 100%;
+    width: 70%;
+    position: fixed;
+    top: 0;
+    left: 15%;
+    right: 15%;
+}
+
+.battleSection {
+    height: 70vh;
+    background: url("./images/bb3.png") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.pokemonDiv {
+    height: 340px;
+    position: absolute;
+    top: 30%;
+    left: 15%;
+}
+
+.enemyPokemonDiv {
+    height: 340px;
+    position: absolute;
+    top: 5%;
+    right: 15%;
+}
+
+.pokemonStatus, .enemyPokemonStatus {
+    height: 15%;
+    width: 25%;
+    background-color: rgb(230, 230, 230);
+    border: 5px solid black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-weight: bold;
+}
+
+.pokemonStatus {
+    align-self: flex-end;
+    margin-right: 20%;
+}
+
+.enemyPokemonStatus {
+    margin-left: 20%;
+}
+
+.pokemonNameAndType {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.pokemonHealthBarContainer {
+    width: 80%;
+    background-color: black;
+    height: 1.3rem;
+}
+
+.pokemonHealthBar {
+    height: 100%;
+    color: white;
+}
+
+.menuSection {
+    height: 30vh;
+    background-color: #83aaa9;
+    color: #f7f7f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.attacks {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.switchPokemons {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.switchPokemonsText {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: x-large;
+}
+
+.pokemonOptions {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.pokemonOption {
+    flex-grow: 1;
+    max-height: 250px;
+    max-width: 250px;
+}
