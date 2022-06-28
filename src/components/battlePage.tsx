@@ -24,10 +24,11 @@ type pokemonArray = {
     yourPokemons: pokemonArray[];
     enemyPokemons: pokemonArray[];
     setYourPokemons: any;
+    setEnemyPokemons: any
 }
 
 
-const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, enemyPokemons, setYourPokemons}) => {
+const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, enemyPokemons, setYourPokemons, setEnemyPokemons}) => {
 
     const [pokemonIndex, setPokemonIndex] = useState(0 as number);
     const [enemyPokemonIndex, setEnemyPokemonIndex] = useState(0 as number);
@@ -46,17 +47,28 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     const enemyBaseHP:any = {
-        0: enemyPokemons[0].hp,
-        1: enemyPokemons[1].hp,
-        2: enemyPokemons[2].hp,
+        0: 80,
+        1: 78,
+        2: 79,
     }
 
     useEffect(() => {        
         setYourHP(yourHurtHP[pokemonIndex])
+        console.log(yourSuperEffective());
+        console.log(enemySuperEffective());
+        
+        
     }, [pokemonIndex]);
 
     useEffect(() => {
-        if (yourHP == 0) {
+        if (enemyPokemons[1].hp <= 0 && enemyPokemons[0].hp <= 0 && enemyPokemons[2].hp <= 0) {
+            setEnemyHP(0);
+            alert("win")
+        }
+    }, [enemyPokemons])
+
+    useEffect(() => {
+        if (yourHP <= 0) {
         const yHHP = [...yourHurtHP];
         yHHP[pokemonIndex] = 0;
         console.log(yHHP);
@@ -70,6 +82,17 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         }
     }, [yourHP]);
 
+    useEffect(() => {
+        if (enemyHP <= 0) {
+        const eP = [...enemyPokemons];
+        eP[enemyPokemonIndex].hp = 0;
+        setEnemyPokemons(eP);
+        console.log(enemyPokemons);
+        enemyForceSwitch();
+        console.log(enemyPokemons);
+        }
+    }, [enemyHP]);
+
     const forceSwitch = () => {
         if (pokemonIndex == 0) {
             return setPokemonIndex(1);
@@ -77,6 +100,18 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
             return setPokemonIndex(2);
         } else if (pokemonIndex == 2) {
             return setPokemonIndex(0)
+        };
+    }
+
+    const enemyForceSwitch = () => {
+        if (enemyPokemonIndex == 0) {
+            setEnemyPokemonIndex(1);
+            setEnemyHP(enemyPokemons[1].hp);
+            console.log(enemyHP);
+            
+        } else if (enemyPokemonIndex == 1) {
+            setEnemyPokemonIndex(2);
+            setEnemyHP(enemyPokemons[2].hp);
         };
     }
 
@@ -94,8 +129,101 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         } else if (x < 50) {
             return "yellow";
         } else if (x > 49) {
-            return "green";
+            return "#367330";
         }
+    }
+
+    const effectiveAgainst = (type:any) => {
+        if (type == "Fire") {
+            return "Super-Effective against Grass, Ice, Bug, and Steel Types";
+        }
+        if (type == "Water") {
+            return "Super-Effective against Fire, Ground, and Rock Types";
+        }
+        if (type == "Electric") {
+            return "Super-Effective against Water and Flying Types";
+        }
+        if (type == "Grass") {
+            return "Super-Effective against Water, Ground, and Rock Types";
+        }
+        if (type == "Ice") {
+            return "Super-Effective against Grass, Ground, Flying, and Dragon Types";
+        }
+        if (type == "Fighting") {
+            return "Super-Effective against Normal, Ice, Rock, Dark, and Steel Types";
+        }
+        if (type == "Poison") {
+            return "Super-Effective against Grass Types";
+        }
+        if (type == "Ground") {
+            return "Super-Effective against Fire, Electric, Poison, Rock, and Steel Types";
+        }
+        if (type == "Flying") {
+            return "Super-Effective against Grass, Fighting, and Bug Types";
+        }
+        if (type == "Psychic") {
+            return "Super-Effective against Fighting and Poison Types";
+        }
+        if (type == "Bug") {
+            return "Super-Effective against Grass, Psychic, and Dark Types";
+        }
+        if (type == "Rock") {
+            return "Super-Effective against Fire, Ice, Flying, and Bug Types";
+        }
+        if (type == "Ghost") {
+            return "Super-Effective against Psychic and Ghost Types";
+        }
+        if (type == "Dragon") {
+            return "Super-Effective against Dragon Types";
+        }
+        if (type == "Dark") {
+            return "Super-Effective against Psychic and Ghost Types";
+        }
+        if (type == "Steel") {
+            return "Super-Effective against Ice and Rock Types";
+        }
+    }
+
+    const yourSuperEffective = () => {
+        const yourType = yourPokemons[pokemonIndex].type;
+        const enemyType = enemyPokemons[enemyPokemonIndex].type;
+        if (enemyType == "Grass") {
+            if (yourType == "Fire" || yourType == "Ice" || yourType == "Poison" || yourType == "Flying" || yourType == "Bug") {
+                return true;
+            }
+        }
+        if (enemyType == "Water") {
+            if (yourType == "Electric" || yourType == "Grass") {
+                return true;
+            }
+        }
+        if (enemyType == "Fire") {
+            if (yourType == "Water" || yourType == "Ground" || yourType == "Rock") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const enemySuperEffective = () => {
+        const yourType = yourPokemons[pokemonIndex].type;
+        const enemyType = enemyPokemons[enemyPokemonIndex].type;
+        if (enemyType == "Grass") {
+            if (yourType == "Water" || yourType == "Ground" || yourType == "Rock") {
+                return true;
+            }
+        }
+        if (enemyType == "Water") {
+            if (yourType == "Fire" || yourType == "Ground" || yourType == "Rock") {
+                return true;
+            }
+        }
+        if (enemyType == "Fire") {
+            if (yourType == "Grass" || yourType == "Ice" || yourType == "Bug" || yourType == "Steel") {
+                return true;
+            }
+        }
+        return false;
     }
 
     const yourBarStyle = (x:number) => {
@@ -112,8 +240,110 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         }
     }
 
-    const attackTest = () => {
-       setYourHP(Math.floor(yourHP / 2));       
+    const enemyAttack = () => {
+        const randomNumber = Math.floor(Math.random()*4);
+        if (enemySuperEffective()) {
+            return enemyTypeAttack();
+        } 
+        else if (randomNumber == 2) {
+            return enemyQuickAttack();
+        }
+        else if (randomNumber == 1) {
+           return enemyTypeAttack();
+        }
+        else if (randomNumber == 3) {
+            return enemyGrowl();
+        }
+        else if (randomNumber == 4) {
+            return enemyLeer();
+        }
+
+    }
+
+    const playRound = (x:number) => {
+       enemyAttack()
+       if (x == 1) {
+           typeAttack()
+       }
+       else if (x == 2) {
+           quickAttack()
+       }
+       else if (x == 3) {
+           growl();
+       }
+       else if (x == 4) {
+           leer();
+       }
+    }
+
+    const typeAttack = () => {
+        console.log("typeattack");
+       const damage = Math.floor(((yourPokemons[pokemonIndex].attack / 2) / 100) * 50);
+       console.log(damage);
+        
+        if (yourSuperEffective()) {
+            const superEffectiveDamage = damage * 2;
+            setEnemyHP(prevEnemyHP => prevEnemyHP - superEffectiveDamage);
+        } else {
+            setEnemyHP(prevEnemyHP => prevEnemyHP - damage);
+        }
+    }
+
+    const enemyTypeAttack = () => {
+        console.log("enemytypeattack");
+        const damage = Math.floor(((enemyPokemons[enemyPokemonIndex].attack / 2) / 100) * 50);
+        console.log(damage);
+        
+        if (enemySuperEffective()) {
+            const superEffectiveDamage = damage * 2;
+            setYourHP(prevYourHP => prevYourHP - superEffectiveDamage);
+        } else {
+            setYourHP(prevYourHP => prevYourHP - damage);
+        }
+    }
+
+    const quickAttack = () => {
+        console.log("quickattack");
+        const damage = Math.floor(((yourPokemons[pokemonIndex].attack / 2) / 100) * 40);
+        setEnemyHP(prevEnemyHP => prevEnemyHP - damage);
+    }
+
+    const enemyQuickAttack = () => {
+        console.log("enemyquickattack");
+        const damage = Math.floor(((enemyPokemons[enemyPokemonIndex].attack / 2) / 100) * 40);
+        setYourHP(prevYourHP => prevYourHP - damage);
+    }
+
+    const growl = () => {
+        console.log("growl");
+        const enemyP = [...enemyPokemons];
+        const enemyAttack = enemyP[enemyPokemonIndex].attack;
+        enemyP[enemyPokemonIndex].attack = Math.floor((enemyAttack / 2));
+        setEnemyPokemons(enemyP);
+    }
+
+    const enemyGrowl = () => {
+        console.log("enemygrowl");
+        const yourP = [...yourPokemons];
+        const yourAttack = yourP[pokemonIndex].attack;
+        yourP[pokemonIndex].attack = Math.floor((yourAttack / 2));
+        setYourPokemons(yourP);
+    }
+
+    const leer = () => {   
+        console.log("leer");     
+        const enemyP = [...enemyPokemons];
+        const enemyDefense = enemyP[enemyPokemonIndex].defense;
+        enemyP[enemyPokemonIndex].defense = Math.floor((enemyDefense / 2));
+        setEnemyPokemons(enemyP);
+    }
+
+    const enemyLeer = () => { 
+        console.log("enemyleer");       
+        const yourP = [...yourPokemons];
+        const yourDefense = yourP[pokemonIndex].defense;
+        yourP[pokemonIndex].defense = Math.floor((yourDefense / 2));
+        setYourPokemons(yourP);
     }
 
     const switchPokemon = (e:any) => {
@@ -131,8 +361,8 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     return(
         <div className='battlePageDiv'>
             <div className='battleSection'>
-                <img className='pokemonDiv' src={yourPokemons[pokemonIndex].backImage} alt="pokemon"></img>
-                <img className='enemyPokemonDiv' onClick={attackTest} src={enemyPokemons[enemyPokemonIndex].frontImage} alt="pokemon"></img>
+                <img className='pokemonDiv' onClick={leer} src={yourPokemons[pokemonIndex].backImage} alt="pokemon"></img>
+                <img className='enemyPokemonDiv' onClick={typeAttack} src={enemyPokemons[enemyPokemonIndex].frontImage} alt="pokemon"></img>
                 <div className='enemyPokemonStatus'>
                 <div className='pokemonNameAndType'>
                     <div className='pokemonName'>{enemyPokemons[enemyPokemonIndex].name}</div>
@@ -154,10 +384,30 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                     <div className='healthText'>HP: {yourHP}/{yourBaseHP[pokemonIndex]}</div>
                 </div>
             </div>
-            <div className='menuSection'>
+            <div className='menuSection'> 
                 <div className='attacks'>
-                    <div className='attack'>Tackle</div>
-                    <div className="attack">Surf</div>
+                    <div className='attack' onClick={() => playRound(1)}>
+                        <div className='attackTop'>
+                            <div className='attackName'>{yourPokemons[pokemonIndex].type} Attack</div>
+                            <div className='attackPower'>50 Power</div>
+                        </div>
+                        <div className='attackDescription'>{effectiveAgainst(yourPokemons[pokemonIndex].type)}</div>
+                    </div>
+                    <div className='attack' onClick={() => playRound(2)}>
+                        <div className='attackTop'>
+                            <div className='attackName'>Quick Attack</div>
+                            <div className='attackPower'>40 Power</div>
+                        </div>
+                        <div className='attackDescription'>Effective against all types; Always attacks first</div>
+                    </div>
+                    <div className="attack" onClick={() => playRound(3)}>
+                        <div className='attackName'>Growl</div>
+                        <div className='attackDescription'>Lowers the enemy pokemon's Attack stat</div>
+                    </div>
+                    <div className="attack" onClick={() => playRound(4)}>
+                        <div className='attackName'>Leer</div>
+                        <div className='attackDescription'>Lowers the enemy pokemon's Defense stat</div>
+                    </div>
                 </div>
                 <div className='switchPokemons'>
                     <div className='switchPokemonsText'>Switch your Pokemon!</div>

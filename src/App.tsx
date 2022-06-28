@@ -20,10 +20,7 @@ type pokemonArray = {
 function App() {
   const [pokemons, setPokemons] = useState([] as pokemonArray[]);
   const [yourPokemons, setYourPokemons] = useState([] as pokemonArray[]);
-  const [a, setA] = useState(1);
-  const [b, setB] = useState(10);
-
-  const enemyPokemons = [
+  const [enemyPokemons, setEnemyPokemons] = useState([
     {
       id: 3,
       name: "Venesaur",
@@ -63,7 +60,9 @@ function App() {
       speed: 78,
       type: "Water"
     }
-  ]
+  ])
+  const [a, setA] = useState(1);
+  const [b, setB] = useState(10);
 
 
   const fetchPokemons = async (a:number, b:number) => {
@@ -125,7 +124,7 @@ function App() {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<HomePage pokemons={pokemons} enemyPokemons={enemyPokemons} yourPokemons={yourPokemons} handleNextArrow={handleNextArrow} handleLastArrow={handleLastArrow} handleCardClick={handleCardClick}/>} />
-        <Route path="/battle" element={<BattlePage enemyPokemons={enemyPokemons} yourPokemons={yourPokemons} setYourPokemons={setYourPokemons}/>} />
+        <Route path="/battle" element={<BattlePage enemyPokemons={enemyPokemons} yourPokemons={yourPokemons} setYourPokemons={setYourPokemons} setEnemyPokemons={setEnemyPokemons}/>} />
       </Routes>
     </BrowserRouter>
   );
