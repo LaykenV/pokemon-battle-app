@@ -274,6 +274,9 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
        else if (x == 4) {
            leer();
        }
+       else if (x == 0) {
+           
+       }
     }
 
     const typeAttack = () => {
