@@ -39,6 +39,9 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     const [battleText1, setBattleText1] = useState("");
     const [pokemonClass, setPokemonClass] = useState("pokemonDiv");
     const [enemyPokemonClass, setEnemyPokemonClass] = useState("enemyPokemonDiv");
+    const [winScreenDisplay, setWinScreenDisplay] = useState("none");
+    const [battleScreenDisplay, setbattleScreenDisplay] = useState("flex");
+    const [winner, setWinner] = useState([] as any);
     const [yourHurtHP, setYourHurtHp] = useState([
         yourPokemons[0].hp,
         yourPokemons[1].hp,
@@ -68,9 +71,36 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     useEffect(() => {
         if (enemyPokemons[1].hp <= 0 && enemyPokemons[0].hp <= 0 && enemyPokemons[2].hp <= 0) {
             setEnemyHP(0);
-            alert("win")
+            setWinScreenDisplay("flex");
+            setbattleScreenDisplay("none");
+            setPokemonClass("gone");
+            setEnemyPokemonClass("gone");
+            setWinner([
+                "You Win",
+                trainerRed,
+                yourPokemons[0].frontImage,
+                yourPokemons[1].frontImage,
+                yourPokemons[2].frontImage
+            ])
         }
     }, [enemyPokemons])
+
+    useEffect(() => {
+        if (yourPokemons[1].hp <= 0 && yourPokemons[0].hp <= 0 && yourPokemons[2].hp <= 0) {
+            setYourHP(0);
+            setWinScreenDisplay("flex");
+            setbattleScreenDisplay("none");
+            setPokemonClass("gone");
+            setEnemyPokemonClass("gone");
+            setWinner([
+                "You Lose",
+                trainerBlue,
+                enemyPokemons[0].frontImage,
+                enemyPokemons[1].frontImage,
+                enemyPokemons[2].frontImage
+            ])
+        }
+    }, [yourPokemons])
 
     useEffect(() => {
         if (yourHP <= 0) {
@@ -187,6 +217,9 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         if (type == "Steel") {
             return "Super-Effective against Ice and Rock Types";
         }
+        if (type == "Normal") {
+            return "Effective against all Types"
+        }
     }
 
     const yourSuperEffective = () => {
@@ -289,7 +322,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         console.log(yourPokemons[pokemonIndex]);
         if (enemySuperEffective()) {
              setBattleText1(`Enemy ${enemyPokemons[enemyPokemonIndex].name} used ${enemyPokemons[enemyPokemonIndex].type} Attack!`);
-             setEnemyPokemonClass("enemyPokemonDiv attacking");
+             setEnemyPokemonClass("enemyPokemonDiv attackingEnemy");
              setTimeout(() => {
                 setEnemyPokemonClass("enemyPokemonDiv")
                 enemyTypeAttack();
@@ -297,7 +330,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         } 
         else if ((yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 50)) <= 0) {
             setBattleText1(`Enemy ${enemyPokemons[enemyPokemonIndex].name} used ${enemyPokemons[enemyPokemonIndex].type} Attack!`);
-             setEnemyPokemonClass("enemyPokemonDiv attacking");
+             setEnemyPokemonClass("enemyPokemonDiv attackingEnemy");
              setTimeout(() => {
                 setEnemyPokemonClass("enemyPokemonDiv")
                 enemyTypeAttack();
@@ -305,7 +338,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         }
         else if (randomNumber == 2) {
              setBattleText1(`Enemy ${enemyPokemons[enemyPokemonIndex].name} used Tackle!`);
-             setEnemyPokemonClass("enemyPokemonDiv attacking");
+             setEnemyPokemonClass("enemyPokemonDiv attackingEnemy");
              setTimeout(() => {
                 setEnemyPokemonClass("enemyPokemonDiv")
                 return enemyTackle();
@@ -313,7 +346,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         }
         else if (randomNumber == 1) {
              setBattleText1(`Enemy ${enemyPokemons[enemyPokemonIndex].name} used ${enemyPokemons[enemyPokemonIndex].type} Attack!`);
-             setEnemyPokemonClass("enemyPokemonDiv attacking");
+             setEnemyPokemonClass("enemyPokemonDiv attackingEnemy");
              setTimeout(() => {
                 setEnemyPokemonClass("enemyPokemonDiv")
                 return enemyTypeAttack();
@@ -321,7 +354,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         }
         else if (randomNumber == 3) {
              setBattleText1(`Enemy ${enemyPokemons[enemyPokemonIndex].name} used Growl`);
-             setEnemyPokemonClass("enemyPokemonDiv attacking");
+             setEnemyPokemonClass("enemyPokemonDiv attackingEnemy");
              setTimeout(() => {
                 setEnemyPokemonClass("enemyPokemonDiv")
                 return enemyGrowl();
@@ -329,7 +362,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         }
         else if (randomNumber == 4) {
              setBattleText1(`Enemy ${enemyPokemons[enemyPokemonIndex].name} used Leer`);
-             setEnemyPokemonClass("enemyPokemonDiv attacking");
+             setEnemyPokemonClass("enemyPokemonDiv attackingEnemy");
              setTimeout(() => {
                 setEnemyPokemonClass("enemyPokemonDiv")
                 return enemyLeer();
@@ -343,7 +376,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         setBattleTextStyle("flex");
         if (yourPokemons[pokemonIndex].speed < enemyPokemons[enemyPokemonIndex].speed) {
             enemyAttack();
-            if ((!enemySuperEffective && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 50)) <= 0) || (enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 100)) <= 0)) {
+            if ((!enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 50) <= 0)) || (enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 100)) <= 0)) {
                 console.log("faint")
                 setTimeout(() => {
                     setBattleText1(`Your ${yourPokemons[pokemonIndex].name} Fainted!`)
@@ -365,7 +398,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
             }
         } else {
             yourAttack(x);
-            if ((x == 1 && yourSuperEffective() && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 100)) <= 0) || (x == 1 && !yourSuperEffective && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 50)) <= 0) || (x == 2 && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 40)) <= 0)) {
+            if ((x == 1 && yourSuperEffective() && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 100) <= 0)) || (x == 1 && !yourSuperEffective && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 50) <= 0)) || (x == 2 && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 40) <= 0))) {
                 console.log("faint")
                 setTimeout(() => {
                     setBattleText1(`Your opponents ${enemyPokemons[enemyPokemonIndex].name} Fainted!`)
@@ -482,9 +515,19 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
 
     return(
         <div className='battlePageDiv'>
-            <div className='battleSection'>
-                <img className={pokemonClass} onClick={leer} src={yourPokemons[pokemonIndex].backImage} alt="pokemon"></img>
-                <img className={enemyPokemonClass} onClick={typeAttack} src={enemyPokemons[enemyPokemonIndex].frontImage} alt="pokemon"></img>
+            <div className='winScreen' style={{display: winScreenDisplay}}>
+                <h1 className="winScreenTitle">{winner[0]}</h1>
+                <img className='winScreenTrainerPic' src={winner[1]} alt='trainer'></img>
+                <div className='winScreenPokemonContainer'>
+                    <img className='winScreenPokemon' src={winner[2]} alt='pokemon'></img>
+                    <img className='winScreenPokemon' src={winner[3]} alt='pokemon'></img>
+                    <img className='winScreenPokemon' src={winner[4]} alt='pokemon'></img>
+                </div>
+                <button className='playAgain' onClick={event => window.location.href="laykenV.github.io/pokemon-battle-app"}>Play Again</button>
+            </div>
+            <div className='battleSection' style={{display: battleScreenDisplay}}>
+                <img className={pokemonClass} src={yourPokemons[pokemonIndex].backImage} alt="pokemon"></img>
+                <img className={enemyPokemonClass} src={enemyPokemons[enemyPokemonIndex].frontImage} alt="pokemon"></img>
                 <div className='enemyPokemonStatus'>
                 <div className='pokemonNameAndType'>
                     <div className='pokemonName'>{enemyPokemons[enemyPokemonIndex].name}</div>
@@ -506,7 +549,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                     <div className='healthText'>HP: {yourHP}/{yourBaseHP[pokemonIndex]}</div>
                 </div>
             </div>
-            <div className='menuSection'> 
+            <div className='menuSection' style={{display: battleScreenDisplay}}> 
                 <div className='attacks' style={{display: attacksStyle}}>
                     <div className='attack' onClick={() => playRound(1)}>
                         <div className='attackTop'>
