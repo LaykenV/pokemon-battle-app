@@ -523,7 +523,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                     <img className='winScreenPokemon' src={winner[3]} alt='pokemon'></img>
                     <img className='winScreenPokemon' src={winner[4]} alt='pokemon'></img>
                 </div>
-                <button className='playAgain' onClick={event => window.location.href="laykenV.github.io/pokemon-battle-app"}>Play Again</button>
+                <button className='playAgain' onClick={event => window.location.href=""}>Play Again</button>
             </div>
             <div className='battleSection' style={{display: battleScreenDisplay}}>
                 <img className={pokemonClass} src={yourPokemons[pokemonIndex].backImage} alt="pokemon"></img>
