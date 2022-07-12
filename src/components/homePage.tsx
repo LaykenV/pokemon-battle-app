@@ -20,7 +20,7 @@ type pokemonArray = {
     type: string;
   }
 
-  type homePageProps = {
+  export type homePageProps = {
       pokemons: pokemonArray[];
       handleNextArrow: any;
       handleLastArrow: any;
@@ -90,7 +90,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
 
 
     return (
-        <div className="homeDiv">
+        <div className="homeDiv" data-testid="homePage">
             <div className="homeHeader">
                 <div className="homeTitle"><img src='https://fontmeme.com/permalink/220622/de8a8ff8a7e388a64ff2624d3869d92a.png' alt='pokemon battle'></img></div>
                 <div className="trainersAndDescription">
@@ -131,7 +131,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                 <div className="bodyMain">
                     {pokemons.map((pokemon) => {
                     return (
-                        <div className='cardContainer' key={pokemon.id}>
+                        <div className='cardContainer' key={pokemon.id} data-testid={`pokemon-${pokemons.indexOf(pokemon)}`}>
                             <div className='card'>
                                 <img src={pokemon.frontImage} alt={pokemon.name}></img>
                                 <div className='pokemonName'>{pokemon.name}</div>

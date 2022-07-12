@@ -20,7 +20,7 @@ type pokemonArray = {
     type: string;
   }
   
-  type battlePageProps = {
+  export type battlePageProps = {
     yourPokemons: pokemonArray[];
     enemyPokemons: pokemonArray[];
     setYourPokemons: any;
@@ -514,7 +514,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     return(
-        <div className='battlePageDiv'>
+        <div className='battlePageDiv' data-testid="battlePage">
             <div className='winScreen' style={{display: winScreenDisplay}}>
                 <h1 className="winScreenTitle">{winner[0]}</h1>
                 <img className='winScreenTrainerPic' src={winner[1]} alt='trainer'></img>
