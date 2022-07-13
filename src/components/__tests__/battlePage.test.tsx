@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import BattlePage, {battlePageProps} from '../battlePage';
+import { act } from 'react-dom/test-utils';
 
 function renderBattlePage() {
     const defaultProps: battlePageProps = {
@@ -98,3 +98,21 @@ test("should render battlePage component", () => {
     const battlePageElement = screen.getByTestId("battlePage");
     expect(battlePageElement).toBeInTheDocument();
 });
+
+test("can deal damage to enemy", async() => {
+  renderBattlePage();
+  const tackleAttack = screen.getByTestId("tackleAttack");
+  const enemyHealthBar = screen.getByTestId("enemyHealthBar");
+  fireEvent.click(tackleAttack);
+  await new Promise(resolve => setTimeout(resolve, 3000))
+  expect(enemyHealthBar).not.toHaveStyle("width: 100%");
+})
+
+test("can switch pokemon", async() => {
+  renderBattlePage();
+  const yourPokemonImg = screen.getByTestId("activePokemon");
+  const switchPokemon = screen.getByTestId("yourPokemon-1");
+  fireEvent.click(switchPokemon);
+  expect(yourPokemonImg).toHaveAttribute("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png")
+})
+

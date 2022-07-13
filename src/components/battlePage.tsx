@@ -526,7 +526,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                 <button className='playAgain' onClick={event => window.location.href="https://laykenV.github.io/pokemon-battle-app"}>Play Again</button>
             </div>
             <div className='battleSection' style={{display: battleScreenDisplay}}>
-                <img className={pokemonClass} src={yourPokemons[pokemonIndex].backImage} alt="pokemon"></img>
+                <img className={pokemonClass} src={yourPokemons[pokemonIndex].backImage} alt="pokemon" data-testid="activePokemon"></img>
                 <img className={enemyPokemonClass} src={enemyPokemons[enemyPokemonIndex].frontImage} alt="pokemon"></img>
                 <div className='enemyPokemonStatus'>
                 <div className='pokemonNameAndType'>
@@ -534,7 +534,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                     <div className='pokemonType'>{enemyPokemons[enemyPokemonIndex].type} Type</div>
                 </div>                    
                 <div className='pokemonHealthBarContainer'>
-                    <div className='pokemonHealthBar' style={enemyBarStyle(enemyPokemonIndex)}></div>
+                    <div className='pokemonHealthBar' style={enemyBarStyle(enemyPokemonIndex)} data-testid="enemyHealthBar"></div>
                 </div>
                 <div className='healthText'>HP: {enemyHP}/{enemyBaseHP[enemyPokemonIndex]}</div>
                 </div>
@@ -558,7 +558,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                         </div>
                         <div className='attackDescription'>{effectiveAgainst(yourPokemons[pokemonIndex].type)}</div>
                     </div>
-                    <div className='attack' onClick={() => playRound(2)}>
+                    <div className='attack' onClick={() => playRound(2)} data-testid="tackleAttack">
                         <div className='attackTop'>
                             <div className='attackName'>Tackle</div>
                             <div className='attackPower'>40 Power</div>
@@ -583,7 +583,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                         {yourPokemons.map((pokemon) => {
                             if (pokemon.hp > 0) {
                                 return(
-                                    <img className='pokemonOption' onClick={switchPokemon} src={pokemon.frontImage} alt={pokemon.name} key={pokemon.id}></img>
+                                    <img className='pokemonOption' onClick={switchPokemon} src={pokemon.frontImage} alt={pokemon.name} key={pokemon.id} data-testid={`yourPokemon-${yourPokemons.indexOf(pokemon)}`}></img>
                                 )
                             }
                         })}

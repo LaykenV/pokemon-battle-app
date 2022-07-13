@@ -97,9 +97,9 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                     <div className="trainerLeft">
                         <img src={trainerRed} alt="trainer" className="trainerPic"></img>
                         <div className="trainerPokemon">
-                            <img src={ballOrPokemon(0)} alt="ball" className="battlePokemon"></img>
-                            <img src={ballOrPokemon(1)} alt="ball" className="battlePokemon"></img>
-                            <img src={ballOrPokemon(2)} alt="ball" className="battlePokemon"></img>
+                            <img src={ballOrPokemon(0)} alt="ball" className="battlePokemon" data-testid="battlePokemon1"></img>
+                            <img src={ballOrPokemon(1)} alt="ball" className="battlePokemon" data-testid="battlePokemon2"></img>
+                            <img src={ballOrPokemon(2)} alt="ball" className="battlePokemon" data-testid="battlePokemon3"></img>
                         </div>
                     </div>
                     <div className="battleDescription">
@@ -117,7 +117,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                 </div>
                 <div className='battleDescriptionTextMobileContainer'>
                     <div className='battleDescriptionTextMobile'>Choose your pokemon and get ready to battle!</div>
-                    <button className='battleButton' style={buttonStyle}><Link style={buttonStyle} to="/battle" className='link'>Start the battle!</Link></button>
+                    <button className='battleButton' style={buttonStyle} data-testid="battleButton"><Link style={buttonStyle} to="/battle" className='link'>Start the battle!</Link></button>
                 </div>
                 
                 <div className="blackBar">
@@ -154,7 +154,7 @@ const HomePage: React.FunctionComponent<homePageProps> = ({pokemons, handleNextA
                                     <div className='statName'>Speed:</div>
                                     <div className='progressBarContainer'><div className='progressBar' style={barStyleSpeed(pokemon)}>{pokemon.speed}</div></div>
                                 </div>
-                                <button className='addToTeam' onClick={handleCardClick}>Add to team</button>
+                                <button className='addToTeam' onClick={handleCardClick} data-testid={`addPokemon-${pokemons.indexOf(pokemon)}`}>Add to team</button>
                             </div>
                         </div>
                     )

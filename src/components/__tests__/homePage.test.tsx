@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import HomePage, {homePageProps} from '../homePage';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -150,4 +149,36 @@ test("should render pokemon list from props", () => {
     expect(pokemonElement1).toBeInTheDocument();
     expect(pokemonElement2).toBeInTheDocument();
     expect(pokemonElement3).toBeInTheDocument();
+})
+
+test("should render selected pokemon under trainer picture", () => {
+  renderHomePage();
+  const addPokemonButton1 = screen.getByTestId("addPokemon-0");
+  const addPokemonButton2 = screen.getByTestId("addPokemon-1");
+  const addPokemonButton3 = screen.getByTestId("addPokemon-2");
+  const battlePokemon1 = screen.getByTestId("battlePokemon1");
+  const battlePokemon2 = screen.getByTestId("battlePokemon2");
+  const battlePokemon3 = screen.getByTestId("battlePokemon3");
+
+  fireEvent.click(addPokemonButton1);
+  fireEvent.click(addPokemonButton2);
+  fireEvent.click(addPokemonButton3);
+
+  expect(battlePokemon1).toHaveAttribute("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png");
+  expect(battlePokemon2).toHaveAttribute("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png");
+  expect(battlePokemon3).toHaveAttribute("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png");
+})
+
+test("should render start battle button after 3 pokemon selections", () => {
+  renderHomePage();
+  const addPokemonButton1 = screen.getByTestId("addPokemon-0");
+  const addPokemonButton2 = screen.getByTestId("addPokemon-1");
+  const addPokemonButton3 = screen.getByTestId("addPokemon-2");
+  const battleButton = screen.getByTestId("battleButton");
+
+  fireEvent.click(addPokemonButton1);
+  fireEvent.click(addPokemonButton2);
+  fireEvent.click(addPokemonButton3);
+
+  expect(battleButton).toBeVisible();
 })
