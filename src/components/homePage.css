@@ -9,6 +9,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .homeTitle > img {
@@ -30,8 +31,11 @@ margin-top: 1rem;
 }
 
 .battleButton {
-    width: 100%;
-    background-color: rgb(108, 199, 108);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    background-color: rgb(14, 233, 14);
     border: none;
     border-radius: 1rem;
     font-size: large;

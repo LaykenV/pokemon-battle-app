@@ -116,3 +116,13 @@ test("can switch pokemon", async() => {
   expect(yourPokemonImg).toHaveAttribute("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png")
 })
 
+test("displays pokemon type correctly initially and after switching pokemon", async() => {
+  renderBattlePage();
+  const yourPokemonType = screen.getByTestId("yourPokemonType");
+  const enemyPokemonType = screen.getByTestId("enemyPokemonType");
+  const switchPokemon = screen.getByTestId("yourPokemon-1");
+  expect(yourPokemonType).toHaveTextContent("Grass Type");
+  expect(enemyPokemonType).toHaveTextContent("Grass Type");
+  fireEvent.click(switchPokemon);
+  expect(yourPokemonType).toHaveTextContent("Fire Type");
+});

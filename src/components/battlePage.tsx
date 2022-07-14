@@ -376,7 +376,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         setBattleTextStyle("flex");
         if (yourPokemons[pokemonIndex].speed < enemyPokemons[enemyPokemonIndex].speed) {
             enemyAttack();
-            if ((!enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 50) <= 0)) || (enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 100)) <= 0)) {
+            if ((!enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 50) <= 0)) || (enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 100) <= 0))) {
                 console.log("faint")
                 setTimeout(() => {
                     setBattleText1(`Your ${yourPokemons[pokemonIndex].name} Fainted!`)
@@ -531,7 +531,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                 <div className='enemyPokemonStatus'>
                 <div className='pokemonNameAndType'>
                     <div className='pokemonName'>{enemyPokemons[enemyPokemonIndex].name}</div>
-                    <div className='pokemonType'>{enemyPokemons[enemyPokemonIndex].type} Type</div>
+                    <div className='pokemonType' data-testid="enemyPokemonType">{enemyPokemons[enemyPokemonIndex].type} Type</div>
                 </div>                    
                 <div className='pokemonHealthBarContainer'>
                     <div className='pokemonHealthBar' style={enemyBarStyle(enemyPokemonIndex)} data-testid="enemyHealthBar"></div>
@@ -541,7 +541,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
                 <div className='pokemonStatus'>
                     <div className='pokemonNameAndType'>
                         <div className='pokemonName'>{yourPokemons[pokemonIndex].name}</div>
-                        <div className='pokemonType'>{yourPokemons[pokemonIndex].type} Type</div>
+                        <div className='pokemonType' data-testid="yourPokemonType">{yourPokemons[pokemonIndex].type} Type</div>
                     </div>
                     <div className='pokemonHealthBarContainer'>
                         <div className='pokemonHealthBar' style={yourBarStyle(pokemonIndex)}></div>

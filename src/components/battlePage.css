@@ -58,6 +58,7 @@
     align-items: center;
     gap: 1rem;
     font-weight: bold;
+    z-index: 1000;
 }
 
 .pokemonStatus {
@@ -194,6 +195,10 @@
     width: 100%;
 }
 
+.pokemonOptions:hover {
+    cursor: pointer;
+}
+
 .pokemonOption {
     flex-grow: 1;
     max-height: 250px;
@@ -244,12 +249,13 @@
 
 @keyframes attack {
     0% { transform: translateY(0); }
-    50% { transform: translateX(-40px) translateY(30px);}
+    70% { transform: translateX(-40px) translateY(30px);}
     100% { transform: translateY(-100px) translateX(100px)}
 }
 
 @keyframes enemyAttack {
     0% { transform: translateY(0); }
+    70% { transform: translateX(40px) translateY(-30px);}
     100% { transform: translateY(100px) translateX(-100px)}
 }
 
