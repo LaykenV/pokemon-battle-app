@@ -31,10 +31,8 @@ margin-top: 1rem;
 }
 
 .battleButton {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 100px;
+    width: 100%;
+    height: 2rem;
     background-color: rgb(14, 233, 14);
     border: none;
     border-radius: 1rem;
@@ -264,6 +262,14 @@ margin-top: 1rem;
 
     .cardContainer {
         width: 45%;
+    }
+
+    .battleButton {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 150px;
+        height: 100px;
     }
 }
 
