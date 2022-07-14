@@ -215,7 +215,6 @@ margin-top: 1rem;
 .progressBarContainer {
     width: 50%;
     background-color: rgb(199, 151, 151);
-    height: 1rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
