@@ -179,6 +179,7 @@ margin-top: 1rem;
     background-color: rgb(211, 202, 202);
     height: 12rem;
     border-radius: 1rem;
+    width: fit-content;
 }
 
 .card > img {

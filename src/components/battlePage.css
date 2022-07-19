@@ -64,10 +64,12 @@
 .pokemonStatus {
     align-self: flex-end;
     margin-right: 20%;
+    padding: .5rem;
 }
 
 .enemyPokemonStatus {
     margin-left: 20%;
+    padding: .5rem;
 }
 
 .pokemonNameAndType {
@@ -106,6 +108,8 @@
     font-size: x-large;
     font-weight: bold;
     color: #f7f7f9;
+    flex-grow: 1;
+    padding: 1rem;
 }
 
 .battleText1 {
@@ -356,6 +360,10 @@
     .attacks {
         padding: .3rem;
         grid-gap: .3rem;
+    }
+
+    .battleText {
+        padding: .3rem;
     }
 }
 
