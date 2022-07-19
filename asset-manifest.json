@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/pokemon-battle-app/static/css/main.184698bf.css",
+    "main.css": "/pokemon-battle-app/static/css/main.ca661601.css",
     "main.js": "/pokemon-battle-app/static/js/main.81e1ef4e.js",
     "static/media/bb3.png": "/pokemon-battle-app/static/media/bb3.00fa7166a42407d4776d.png",
     "static/media/trainerBlue.png": "/pokemon-battle-app/static/media/trainerBlue.309f6327dfabddd5028b.png",
     "static/media/trainerRed.png": "/pokemon-battle-app/static/media/trainerRed.e8744762a6b21cee18ca.png",
     "index.html": "/pokemon-battle-app/index.html",
-    "main.184698bf.css.map": "/pokemon-battle-app/static/css/main.184698bf.css.map",
+    "main.ca661601.css.map": "/pokemon-battle-app/static/css/main.ca661601.css.map",
     "main.81e1ef4e.js.map": "/pokemon-battle-app/static/js/main.81e1ef4e.js.map"
   },
   "entrypoints": [
-    "static/css/main.184698bf.css",
+    "static/css/main.ca661601.css",
     "static/js/main.81e1ef4e.js"
   ]
 }
