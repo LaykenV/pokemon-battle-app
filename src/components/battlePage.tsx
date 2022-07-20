@@ -61,11 +61,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     useEffect(() => {        
-        setYourHP(yourHurtHP[pokemonIndex])
-        console.log(yourSuperEffective());
-        console.log(enemySuperEffective());
-        
-        
+        setYourHP(yourHurtHP[pokemonIndex])        
     }, [pokemonIndex]);
 
     useEffect(() => {
@@ -105,9 +101,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     useEffect(() => {
         if (yourHP <= 0) {
         const yHHP = [...yourHurtHP];
-        yHHP[pokemonIndex] = 0;
-        console.log(yHHP);
-        
+        yHHP[pokemonIndex] = 0;        
         setYourHurtHp(yHHP);
         const yP = [...yourPokemons];
         yP[pokemonIndex].hp = 0;
@@ -122,9 +116,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         const eP = [...enemyPokemons];
         eP[enemyPokemonIndex].hp = 0;
         setEnemyPokemons(eP);
-        console.log(enemyPokemons);
         enemyForceSwitch();
-        console.log(enemyPokemons);
         }
     }, [enemyHP]);
 
@@ -142,7 +134,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         if (enemyPokemonIndex == 0) {
             setEnemyPokemonIndex(1);
             setEnemyHP(enemyPokemons[1].hp);
-            console.log(enemyHP);
             
         } else if (enemyPokemonIndex == 1) {
             setEnemyPokemonIndex(2);
@@ -245,8 +236,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
 
     const enemySuperEffective = () => {
         const yourType = yourPokemons[pokemonIndex].type;
-        console.log(pokemonIndex);
-        console.log(enemyPokemonIndex);       
         const enemyType = enemyPokemons[enemyPokemonIndex].type;
         if (enemyType == "Grass") {
             if (yourType == "Water" || yourType == "Ground" || yourType == "Rock") {
@@ -318,8 +307,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
 
     const enemyAttack = () => {
         const randomNumber = Math.ceil(Math.random()*4);
-        console.log(randomNumber);
-        console.log(yourPokemons[pokemonIndex]);
         if (enemySuperEffective()) {
              setBattleText1(`Enemy ${enemyPokemons[enemyPokemonIndex].name} used ${enemyPokemons[enemyPokemonIndex].type} Attack!`);
              setEnemyPokemonClass("enemyPokemonDiv attackingEnemy");
@@ -377,7 +364,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         if (yourPokemons[pokemonIndex].speed < enemyPokemons[enemyPokemonIndex].speed) {
             enemyAttack();
             if ((!enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 50) <= 0)) || (enemySuperEffective() && (yourHP - (((enemyPokemons[enemyPokemonIndex].attack) / 200) * 100) <= 0))) {
-                console.log("faint")
                 setTimeout(() => {
                     setBattleText1(`Your ${yourPokemons[pokemonIndex].name} Fainted!`)
                 }, 2000);
@@ -399,7 +385,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
         } else {
             yourAttack(x);
             if ((x == 1 && yourSuperEffective() && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 100) <= 0)) || (x == 1 && !yourSuperEffective && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 50) <= 0)) || (x == 2 && (enemyHP - (((yourPokemons[pokemonIndex].attack) / 200) * 40) <= 0))) {
-                console.log("faint")
                 setTimeout(() => {
                     setBattleText1(`Your opponents ${enemyPokemons[enemyPokemonIndex].name} Fainted!`)
                 }, 2000);
@@ -422,10 +407,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     const typeAttack = async() => {
-        console.log("typeattack");
-       const damage = Math.floor(((yourPokemons[pokemonIndex].attack / 2) / 100) * 50);
-       console.log(damage);
-        
+       const damage = Math.floor(((yourPokemons[pokemonIndex].attack / 2) / 100) * 50);        
         if (yourSuperEffective()) {
             const superEffectiveDamage = damage * 2;
             setEnemyHP(prevEnemyHP => prevEnemyHP - superEffectiveDamage);
@@ -435,10 +417,7 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     const enemyTypeAttack = () => {
-        console.log("enemytypeattack");
         const damage = Math.floor(((enemyPokemons[enemyPokemonIndex].attack / 2) / 100) * 50);
-        console.log(damage);
-        console.log(enemyPokemonIndex);
         if (enemySuperEffective()) {
             const superEffectiveDamage = damage * 2;
             setYourHP(prevYourHP => prevYourHP - superEffectiveDamage);
@@ -448,19 +427,16 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     const tackle = () => {
-        console.log("quickattack");
         const damage = Math.floor(((yourPokemons[pokemonIndex].attack / 2) / 100) * 40);
         setEnemyHP(prevEnemyHP => prevEnemyHP - damage);
     }
 
     const enemyTackle = () => {
-        console.log("enemyquickattack");
         const damage = Math.floor(((enemyPokemons[enemyPokemonIndex].attack / 2) / 100) * 40);
         setYourHP(prevYourHP => prevYourHP - damage);
     }
 
     const growl = () => {
-        console.log("growl");
         const enemyP = [...enemyPokemons];
         const enemyAttack = enemyP[enemyPokemonIndex].attack;
         enemyP[enemyPokemonIndex].attack = Math.floor((enemyAttack / 2));
@@ -468,7 +444,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     const enemyGrowl = () => {
-        console.log("enemygrowl");
         const yourP = [...yourPokemons];
         const yourAttack = yourP[pokemonIndex].attack;
         yourP[pokemonIndex].attack = Math.floor((yourAttack / 2));
@@ -476,7 +451,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     const leer = () => {   
-        console.log("leer");     
         const enemyP = [...enemyPokemons];
         const enemyDefense = enemyP[enemyPokemonIndex].defense;
         enemyP[enemyPokemonIndex].defense = Math.floor((enemyDefense / 2));
@@ -484,7 +458,6 @@ const BattlePage: React.FunctionComponent<battlePageProps> = ({yourPokemons, ene
     }
 
     const enemyLeer = () => { 
-        console.log("enemyleer");       
         const yourP = [...yourPokemons];
         const yourDefense = yourP[pokemonIndex].defense;
         yourP[pokemonIndex].defense = Math.floor((yourDefense / 2));
