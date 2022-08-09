@@ -15,7 +15,7 @@ A Pokemon battle simulator that allows you to choose your team and battle your r
 
 ## Objectives
 
-The main motivation for this work was to design and deploy an application that myself and others could enjoy while also showcasing my software engineering skills.
+My main motivation for this work was to design and deploy an application that myself and others could enjoy while also showcasing my software engineering skills.
 
 ## Built with
 
